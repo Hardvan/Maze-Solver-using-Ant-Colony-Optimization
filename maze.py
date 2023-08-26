@@ -75,6 +75,15 @@ class MazeGUI:
                 self.canvas.create_rectangle(
                     j * 30, i * 30, (j + 1) * 30, (i + 1) * 30, fill=color)
 
+                if (i, j) == (0, 0):
+                    self.canvas.create_rectangle(
+                        j * 30, i * 30, (j + 1) * 30, (i + 1) * 30, fill="yellow"
+                    )
+                if (i, j) == (self.rows - 1, self.cols - 1):
+                    self.canvas.create_rectangle(
+                        j * 30, i * 30, (j + 1) * 30, (i + 1) * 30, fill="green"
+                    )
+
     def solve_maze(self):
         solver = MazeSolver(self.maze, (0, 0), (self.rows - 1, self.cols - 1))
         solver.solve()
