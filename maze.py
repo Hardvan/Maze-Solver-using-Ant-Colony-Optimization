@@ -62,8 +62,10 @@ class MazeGUI:
         self.maze = maze
         self.rows = len(maze)
         self.cols = len(maze[0])
+        self.square_size = 42  # Adjust the size of each square
+
         self.canvas = tk.Canvas(
-            root, width=self.cols * 30, height=self.rows * 30)
+            root, width=self.cols * self.square_size, height=self.rows * self.square_size)
         self.canvas.pack()
         self.draw_maze()
         self.solve_maze()
@@ -73,15 +75,15 @@ class MazeGUI:
             for j in range(self.cols):
                 color = "white" if not self.maze[i][j] else "black"
                 self.canvas.create_rectangle(
-                    j * 30, i * 30, (j + 1) * 30, (i + 1) * 30, fill=color)
+                    j * self.square_size, i * self.square_size, (j + 1) * self.square_size, (i + 1) * self.square_size, fill=color)
 
                 if (i, j) == (0, 0):
                     self.canvas.create_rectangle(
-                        j * 30, i * 30, (j + 1) * 30, (i + 1) * 30, fill="yellow"
+                        j * self.square_size, i * self.square_size, (j + 1) * self.square_size, (i + 1) * self.square_size, fill="yellow"
                     )
                 if (i, j) == (self.rows - 1, self.cols - 1):
                     self.canvas.create_rectangle(
-                        j * 30, i * 30, (j + 1) * 30, (i + 1) * 30, fill="green"
+                        j * self.square_size, i * self.square_size, (j + 1) * self.square_size, (i + 1) * self.square_size, fill="green"
                     )
 
     def solve_maze(self):
@@ -92,13 +94,13 @@ class MazeGUI:
 
     def animate_path(self, path):
         for i, (row, col) in enumerate(path):
-            x, y = col * 30, row * 30
+            x, y = col * self.square_size, row * self.square_size
 
             # Blinking effect for source (yellow) and goal (green) squares
             if (row, col) == (0, 0) or (row, col) == (self.rows - 1, self.cols - 1):
                 for _ in range(3):  # Blink for 3 iterations
                     self.canvas.create_oval(
-                        x + 5, y + 5, x + 25, y + 25, fill="blue")
+                        x + 5, y + 5, x + self.square_size - 5, y + self.square_size - 5, fill="blue")
                     self.root.update()
                     self.root.after(300)  # Delay of 300 milliseconds
                     self.canvas.delete("all")
@@ -107,13 +109,13 @@ class MazeGUI:
                     self.root.after(300)  # Delay of 300 milliseconds
             else:
                 self.canvas.create_oval(
-                    x + 5, y + 5, x + 25, y + 25, fill="blue")
+                    x + 5, y + 5, x + self.square_size - 5, y + self.square_size - 5, fill="blue")
                 self.root.update()
                 self.root.after(100)  # Add a delay of 100 milliseconds
 
             if i < len(path) - 1:
                 self.canvas.create_line(
-                    x + 15, y + 15, path[i + 1][1] * 30 + 15, path[i + 1][0] * 30 + 15, fill="blue", width=2)
+                    x + self.square_size // 2, y + self.square_size // 2, path[i + 1][1] * self.square_size + self.square_size // 2, path[i + 1][0] * self.square_size + self.square_size // 2, fill="blue", width=2)
                 self.root.update()
                 self.root.after(100)  # Add a delay of 100 milliseconds
                 self.canvas.delete("all")
