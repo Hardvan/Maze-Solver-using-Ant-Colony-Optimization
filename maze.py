@@ -93,9 +93,24 @@ class MazeGUI:
     def animate_path(self, path):
         for i, (row, col) in enumerate(path):
             x, y = col * 30, row * 30
-            self.canvas.create_oval(x + 5, y + 5, x + 25, y + 25, fill="blue")
-            self.root.update()
-            self.root.after(100)  # Add a delay of 100 milliseconds
+
+            # Blinking effect for source (yellow) and goal (green) squares
+            if (row, col) == (0, 0) or (row, col) == (self.rows - 1, self.cols - 1):
+                for _ in range(3):  # Blink for 3 iterations
+                    self.canvas.create_oval(
+                        x + 5, y + 5, x + 25, y + 25, fill="blue")
+                    self.root.update()
+                    self.root.after(300)  # Delay of 300 milliseconds
+                    self.canvas.delete("all")
+                    self.draw_maze()
+                    self.root.update()
+                    self.root.after(300)  # Delay of 300 milliseconds
+            else:
+                self.canvas.create_oval(
+                    x + 5, y + 5, x + 25, y + 25, fill="blue")
+                self.root.update()
+                self.root.after(100)  # Add a delay of 100 milliseconds
+
             if i < len(path) - 1:
                 self.canvas.create_line(
                     x + 15, y + 15, path[i + 1][1] * 30 + 15, path[i + 1][0] * 30 + 15, fill="blue", width=2)
