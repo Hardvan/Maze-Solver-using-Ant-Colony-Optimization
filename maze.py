@@ -149,12 +149,13 @@ def main():
     #     [0, 0, 0, 0, 0]
     # ]
 
-    maze_sizes = [3, 5, 7]  # Define maze sizes to generate
-    for size in maze_sizes:
-        maze = generate_random_maze(size, size)
-        root = tk.Tk()
-        gui = MazeGUI(root, maze)
-        root.mainloop()
+    rows = 5
+    cols = 5
+    maze = generate_random_maze(rows, cols)
+
+    root = tk.Tk()
+    gui = MazeGUI(root, maze)
+    root.mainloop()
 
 
 if __name__ == "__main__":
