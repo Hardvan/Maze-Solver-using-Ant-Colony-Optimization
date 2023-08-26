@@ -123,11 +123,15 @@ class MazeGUI:
                     self.canvas.delete("all")
                     self.draw_maze()
 
-        # After the animation is finished, display the final path
-        for row, col in path:
-            x, y = col * self.square_size, row * self.square_size
-            self.canvas.create_oval(
-                x + 5, y + 5, x + self.square_size - 5, y + self.square_size - 5, fill="blue")
+        # After the animation is finished, display the final path as a green line
+        for i in range(len(path) - 1):
+            row1, col1 = path[i]
+            row2, col2 = path[i + 1]
+            x1, y1 = col1 * self.square_size + self.square_size // 2, row1 * \
+                self.square_size + self.square_size // 2
+            x2, y2 = col2 * self.square_size + self.square_size // 2, row2 * \
+                self.square_size + self.square_size // 2
+            self.canvas.create_line(x1, y1, x2, y2, fill="green", width=2)
             self.root.update()
             self.root.after(100)  # Add a delay of 100 milliseconds
 
