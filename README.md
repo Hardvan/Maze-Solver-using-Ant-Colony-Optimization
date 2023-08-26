@@ -26,7 +26,7 @@ This is a maze solving visualization tool implemented in Python using the Tkinte
 2. Navigate to the directory using:
 
    ```bash
-    cd maze-solver
+    cd <repo-name>
    ```
 
 3. Run the program using:
