@@ -157,21 +157,17 @@ def generate_random_maze(rows, cols):
 
 
 def main():
-    # maze = [
-    #     [0, 1, 0, 0, 0],
-    #     [0, 0, 0, 1, 0],
-    #     [1, 1, 0, 0, 0],
-    #     [0, 0, 1, 1, 0],
-    #     [0, 0, 0, 0, 0]
-    # ]
 
-    rows = 10
-    cols = 10
-    maze = generate_random_maze(rows, cols)
+    maze_sizes = [3, 5, 10]
 
-    root = tk.Tk()
-    gui = MazeGUI(root, maze)
-    root.mainloop()
+    for maze_size in maze_sizes:
+        rows = maze_size
+        cols = maze_size
+        maze = generate_random_maze(rows, cols)
+
+        root = tk.Tk()
+        gui = MazeGUI(root, maze)
+        root.mainloop()
 
 
 if __name__ == "__main__":
