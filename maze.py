@@ -104,6 +104,7 @@ class MazeGUI:
                         x + 5, y + 5, x + self.square_size - 5, y + self.square_size - 5, fill="blue")
                     self.root.update()
                     self.root.after(300)  # Delay of 300 milliseconds
+
                     self.canvas.delete("all")
                     self.draw_maze()
                     self.root.update()
@@ -114,13 +115,21 @@ class MazeGUI:
                 self.root.update()
                 self.root.after(100)  # Add a delay of 100 milliseconds
 
-            if i < len(path) - 1:
-                self.canvas.create_line(
-                    x + self.square_size // 2, y + self.square_size // 2, path[i + 1][1] * self.square_size + self.square_size // 2, path[i + 1][0] * self.square_size + self.square_size // 2, fill="blue", width=2)
-                self.root.update()
-                self.root.after(100)  # Add a delay of 100 milliseconds
-                self.canvas.delete("all")
-                self.draw_maze()
+                if i < len(path) - 1:
+                    self.canvas.create_line(
+                        x + self.square_size // 2, y + self.square_size // 2, path[i + 1][1] * self.square_size + self.square_size // 2, path[i + 1][0] * self.square_size + self.square_size // 2, fill="blue", width=2)
+                    self.root.update()
+                    self.root.after(100)  # Add a delay of 100 milliseconds
+                    self.canvas.delete("all")
+                    self.draw_maze()
+
+        # After the animation is finished, display the final path
+        for row, col in path:
+            x, y = col * self.square_size, row * self.square_size
+            self.canvas.create_oval(
+                x + 5, y + 5, x + self.square_size - 5, y + self.square_size - 5, fill="blue")
+            self.root.update()
+            self.root.after(100)  # Add a delay of 100 milliseconds
 
 
 def generate_random_maze(rows, cols):
