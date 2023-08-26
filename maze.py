@@ -88,10 +88,20 @@ class MazeGUI:
                     )
 
     def solve_maze(self):
-        solver = MazeSolver(self.maze, (0, 0), (self.rows - 1, self.cols - 1))
-        solver.solve()
-        path = solver.reconstruct_path()
-        self.animate_path(path)
+
+        while True:
+
+            solver = MazeSolver(self.maze, (0, 0),
+                                (self.rows - 1, self.cols - 1))
+            solver.solve()
+
+            try:
+                path = solver.reconstruct_path()
+                self.animate_path(path)
+                break  # Break out of the loop if path reconstruction is successful
+            except KeyError:  # Raised if goal is unreachable
+                self.maze = generate_random_maze(self.rows, self.cols)
+                self.draw_maze()
 
     def animate_path(self, path):
         for i, (row, col) in enumerate(path):
@@ -135,6 +145,8 @@ class MazeGUI:
             self.root.update()
             self.root.after(100)  # Add a delay of 100 milliseconds
 
+        return
+
 
 def generate_random_maze(rows, cols):
     maze = [[random.randint(0, 1) for _ in range(cols)] for _ in range(rows)]
@@ -153,8 +165,8 @@ def main():
     #     [0, 0, 0, 0, 0]
     # ]
 
-    rows = 5
-    cols = 5
+    rows = 10
+    cols = 10
     maze = generate_random_maze(rows, cols)
 
     root = tk.Tk()
