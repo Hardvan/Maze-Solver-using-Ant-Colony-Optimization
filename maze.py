@@ -60,10 +60,12 @@ class MazeSolver:
 class MazeGUI:
     def __init__(self, root, maze):
         self.root = root
+        self.root.title("Maze Solver")
         self.maze = maze
         self.rows = len(maze)
         self.cols = len(maze[0])
-        self.square_size = 42  # Adjust the size of each square
+        self.square_size = 69  # Adjust the size of each square
+        self.animation_speed = 150  # Milliseconds per animation step
 
         self.canvas = tk.Canvas(
             root, width=self.cols * self.square_size, height=self.rows * self.square_size)
@@ -113,23 +115,23 @@ class MazeGUI:
                     self.canvas.create_oval(
                         x + 5, y + 5, x + self.square_size - 5, y + self.square_size - 5, fill="blue")
                     self.root.update()
-                    self.root.after(300)  # Delay of 300 milliseconds
+                    self.root.after(self.animation_speed)
 
                     self.canvas.delete("all")
                     self.draw_maze()
                     self.root.update()
-                    self.root.after(300)  # Delay of 300 milliseconds
+                    self.root.after(self.animation_speed)
             else:
                 self.canvas.create_oval(
                     x + 5, y + 5, x + self.square_size - 5, y + self.square_size - 5, fill="blue")
                 self.root.update()
-                self.root.after(100)  # Add a delay of 100 milliseconds
+                self.root.after(self.animation_speed)
 
                 if i < len(path) - 1:
                     self.canvas.create_line(
                         x + self.square_size // 2, y + self.square_size // 2, path[i + 1][1] * self.square_size + self.square_size // 2, path[i + 1][0] * self.square_size + self.square_size // 2, fill="blue", width=2)
                     self.root.update()
-                    self.root.after(100)  # Add a delay of 100 milliseconds
+                    self.root.after(self.animation_speed)
                     self.canvas.delete("all")
                     self.draw_maze()
 
@@ -143,9 +145,7 @@ class MazeGUI:
                 self.square_size + self.square_size // 2
             self.canvas.create_line(x1, y1, x2, y2, fill="green", width=2)
             self.root.update()
-            self.root.after(100)  # Add a delay of 100 milliseconds
-
-        return
+            self.root.after(self.animation_speed)
 
 
 def generate_random_maze(rows, cols):
