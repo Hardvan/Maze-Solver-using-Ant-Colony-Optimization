@@ -124,33 +124,7 @@ class MazeGUI:
 
 
 def generate_random_maze(rows, cols):
-    maze = [[0] * cols for _ in range(rows)]
-
-    def valid_neighbors(cell):
-        i, j = cell
-        neighbors = []
-        if i > 1:
-            neighbors.append((i - 2, j))
-        if i < rows - 2:
-            neighbors.append((i + 2, j))
-        if j > 1:
-            neighbors.append((i, j - 2))
-        if j < cols - 2:
-            neighbors.append((i, j + 2))
-        random.shuffle(neighbors)
-        return neighbors
-
-    def dfs(cell):
-        i, j = cell
-        maze[i][j] = 1
-
-        for neighbor in valid_neighbors(cell):
-            ni, nj = neighbor
-            if maze[ni][nj] == 0:
-                maze[(i + ni) // 2][(j + nj) // 2] = 1
-                dfs(neighbor)
-
-    dfs((0, 0))
+    maze = [[random.randint(0, 1) for _ in range(cols)] for _ in range(rows)]
     maze[0][0] = 0  # Ensure the source remains open
     maze[rows - 1][cols - 1] = 0  # Ensure the goal remains open
 
@@ -158,16 +132,20 @@ def generate_random_maze(rows, cols):
 
 
 def main():
-    maze = [
-        [0, 1, 0, 0, 0],
-        [0, 0, 0, 1, 0],
-        [1, 1, 0, 0, 0],
-        [0, 0, 1, 1, 0],
-        [0, 0, 0, 0, 0]
-    ]
-    root = tk.Tk()
-    gui = MazeGUI(root, maze)
-    root.mainloop()
+    # maze = [
+    #     [0, 1, 0, 0, 0],
+    #     [0, 0, 0, 1, 0],
+    #     [1, 1, 0, 0, 0],
+    #     [0, 0, 1, 1, 0],
+    #     [0, 0, 0, 0, 0]
+    # ]
+
+    maze_sizes = [3, 5, 7]  # Define maze sizes to generate
+    for size in maze_sizes:
+        maze = generate_random_maze(size, size)
+        root = tk.Tk()
+        gui = MazeGUI(root, maze)
+        root.mainloop()
 
 
 if __name__ == "__main__":
