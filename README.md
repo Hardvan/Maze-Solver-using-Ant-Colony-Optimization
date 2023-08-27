@@ -9,6 +9,13 @@ This is a maze solving visualization tool implemented in Python using the Tkinte
 - Utilizes Dijkstra's algorithm to find the shortest path.
 - Animates the solving process, showing the progress of the algorithm step by step.
 
+## Demonstration Video
+
+<video controls>
+  <source src="./Demo_Video.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
 ## Prerequisites
 
 - Python 3.x
