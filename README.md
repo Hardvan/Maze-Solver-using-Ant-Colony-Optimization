@@ -11,10 +11,9 @@ This is a maze solving visualization tool implemented in Python using the Tkinte
 
 ## Demonstration Video
 
-<video controls>
-  <source src="./Demo_Video.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+Click on the thumbnail below to watch the demonstration video on YouTube.
+
+[![Maze Solver Demo](./thumbnail.jpg)](https://youtu.be/2zzawIr0w3o?si=BhZQZS0olTEq26wu)
 
 ## Prerequisites
 
