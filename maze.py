@@ -2,6 +2,10 @@ import tkinter as tk
 import heapq
 import random
 
+# Parameters
+SQUARE_SIZE = 42  # Adjust the size of each square
+ANIMATION_SPEED = 150  # Milliseconds per animation step
+
 
 class MazeSolver:
     def __init__(self, maze, start, end):
@@ -64,8 +68,8 @@ class MazeGUI:
         self.maze = maze
         self.rows = len(maze)
         self.cols = len(maze[0])
-        self.square_size = 42  # Adjust the size of each square
-        self.animation_speed = 150  # Milliseconds per animation step
+        self.square_size = SQUARE_SIZE  # Adjust the size of each square
+        self.animation_speed = ANIMATION_SPEED  # Milliseconds per animation step
         self.current_position = (0, 0)  # Initialize the current position
 
         self.canvas = tk.Canvas(
@@ -175,8 +179,18 @@ def main():
         cols = maze_size
         maze = generate_random_maze(rows, cols)
 
+        # Create the root window
         root = tk.Tk()
+
+        # Center the maze on the screen
+        x = (root.winfo_screenwidth() // 2) - (cols * SQUARE_SIZE // 2)
+        y = (root.winfo_screenheight() // 2) - (rows * SQUARE_SIZE //
+                                                2) - 50  # 50 accounts for the window title bar
+        root.geometry(f"{cols * SQUARE_SIZE}x{rows * SQUARE_SIZE}+{x}+{y}")
+
+        # Create the maze GUI
         gui = MazeGUI(root, maze)
+
         root.mainloop()
 
 
