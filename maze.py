@@ -64,8 +64,9 @@ class MazeGUI:
         self.maze = maze
         self.rows = len(maze)
         self.cols = len(maze[0])
-        self.square_size = 69  # Adjust the size of each square
+        self.square_size = 42  # Adjust the size of each square
         self.animation_speed = 150  # Milliseconds per animation step
+        self.current_position = (0, 0)  # Initialize the current position
 
         self.canvas = tk.Canvas(
             root, width=self.cols * self.square_size, height=self.rows * self.square_size)
@@ -104,10 +105,19 @@ class MazeGUI:
             except KeyError:  # Raised if goal is unreachable
                 self.maze = generate_random_maze(self.rows, self.cols)
                 self.draw_maze()
+                self.current_position = (0, 0)  # Reset the current position
 
     def animate_path(self, path):
         for i, (row, col) in enumerate(path):
             x, y = col * self.square_size, row * self.square_size
+
+            # Highlight the current square with a blue border
+            if (row, col) != self.current_position:
+                self.canvas.create_rectangle(
+                    x, y, x + self.square_size, y + self.square_size, outline="blue", width=1)
+                self.root.update()
+
+            self.current_position = (row, col)  # Update the current position
 
             # Blinking effect for source (yellow) and goal (green) squares
             if (row, col) == (0, 0) or (row, col) == (self.rows - 1, self.cols - 1):
@@ -158,7 +168,7 @@ def generate_random_maze(rows, cols):
 
 def main():
 
-    maze_sizes = [3, 5, 10]
+    maze_sizes = [3, 5, 10, 15]
 
     for maze_size in maze_sizes:
         rows = maze_size
