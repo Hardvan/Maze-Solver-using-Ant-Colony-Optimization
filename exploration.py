@@ -3,7 +3,7 @@ import random
 
 # Constants
 SQUARE_SIZE = 20
-MAZE_SIZE = 15  # Adjust the maze size as needed
+MAZE_SIZE = 10  # Adjust the maze size as needed
 ANT_COUNT = 10
 ANT_SPEED = 200  # Milliseconds per ant move
 
@@ -46,6 +46,7 @@ class MazeGUI:
         self.generate_maze()
         self.ants = [Ant(self.canvas, 0, 0) for _ in range(ANT_COUNT)]
         self.food_x, self.food_y = self.place_food()
+        self.food_counter = 0  # Initialize food counter
         self.update_ants()
 
     def generate_maze(self):
@@ -80,6 +81,11 @@ class MazeGUI:
                 food_square_y = self.food_y // SQUARE_SIZE
                 # Mark as food square
                 self.maze[food_square_y][food_square_x] = 2
+
+                # Update food counter and display in the terminal
+                self.food_counter += 1
+                print(f"Food Counter: {self.food_counter}")
+
                 self.canvas.create_rectangle(
                     self.food_x, self.food_y, self.food_x + SQUARE_SIZE, self.food_y + SQUARE_SIZE, fill="pink")
 
