@@ -14,6 +14,7 @@ This is a maze solving visualization tool implemented in Python using the Tkinte
 Click on the thumbnail below to watch the demonstration video on YouTube.
 
 [![Maze Solver Demo](./thumbnail.png)](https://youtu.be/2zzawIr0w3o?si=BhZQZS0olTEq26wu)
+[![Ant Food Exploration Demo](./thumbnail2.png)](https://youtu.be/9SMyAWiDNkQ)
 
 ## Prerequisites
 
